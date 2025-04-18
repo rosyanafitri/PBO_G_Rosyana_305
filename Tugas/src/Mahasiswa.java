@@ -1,36 +1,29 @@
 import java.util.Scanner;
+import java.util.Objects;
 
-public class Mahasiswa {
-    String nama; // Nama mahasiswa
-    String nim = "202410370110305"; // NIM mahasiswa tetap
+public class Mahasiswa extends User {
+    private String validNama = "Rosyana Fitri Satriyo";
+    private String validNIM = "202410370110305";
 
-    // Constructor untuk membuat objek Mahasiswa
     public Mahasiswa(String nama, String nim) {
-        this.nama = nama;
-        this.nim = nim;
+        super(nama, nim);
     }
 
-    // Metode untuk login mahasiswa
+    @Override
     public boolean login() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Masukkan Nama: ");
         String inputNama = scanner.nextLine();
         System.out.print("Masukkan NIM: ");
-        String inputNim = scanner.nextLine();
+        String inputNIM = scanner.nextLine();
 
-        // Cek apakah nama dan NIM sesuai
-        if (inputNama.equals(nama) && inputNim.equals(nim)) {
-            System.out.println("Login Mahasiswa berhasil!");
-            displayInfo(); // Tampilkan info mahasiswa
-            return true;
-        } else {
-            System.out.println("Login gagal! Nama atau NIM salah.");
-            return false;
-        }
+        return Objects.equals(inputNama, validNama) && Objects.equals(inputNIM, validNIM);
     }
 
-    // Metode untuk menampilkan info mahasiswa
+    @Override
     public void displayInfo() {
-        System.out.println("Selamat datang, Mahasiswa " + nama + " dengan NIM " + nim + "!");
+        System.out.println("Login Mahasiswa berhasil!");
+        System.out.println("Nama: " + getNama());
+        System.out.println("NIM: " + getNim());
     }
 }

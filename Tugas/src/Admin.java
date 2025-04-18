@@ -1,38 +1,32 @@
 import java.util.Scanner;
+import java.util.Objects;
 
-public class Admin {
-    String username = "Admin010"; // Username admin tetap
-    String password = "password010"; // Password admin tetap
-    String nama; // Nama admin
-    String nim; // NIM admin (mungkin kurang relevan)
+public class Admin extends User {
+    private String username;
+    private String password;
+    private String adminNIMPostfix = "006"; // Mengasumsikan 3 digit NIM terakhir adalah 006
 
-    // Constructor untuk membuat objek Admin
-    public Admin(String username, String password) {
+    public Admin(String nama, String nim, String username, String password) {
+        super(nama, nim);
         this.username = username;
         this.password = password;
     }
 
-    // Metode untuk login admin
+    @Override
     public boolean login() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Masukkan username: ");
         String inputUsername = scanner.nextLine();
         System.out.print("Masukkan password: ");
         String inputPassword = scanner.nextLine();
+        String validUsername = "Admin" + adminNIMPostfix;
+        String validPassword = "password" + adminNIMPostfix;
 
-        // Cek apakah username dan password sesuai
-        if (inputUsername.equals(username) && inputPassword.equals(password)) {
-            System.out.println("Login Admin berhasil!");
-            displayInfo(); // Tampilkan info admin
-            return true;
-        } else {
-            System.out.println("Login gagal! Username atau password salah.");
-            return false;
-        }
+        return Objects.equals(inputUsername, validUsername) && Objects.equals(inputPassword, validPassword);
     }
 
-    // Metode untuk menampilkan info admin
+    @Override
     public void displayInfo() {
-        System.out.println("Selamat datang, Admin " + nama + "!");
+        System.out.println("Login Admin berhasil!");
     }
 }
